@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { PUBLIC_CLIENT_PB } from '$env/static/public';
 	import PocketBase from 'pocketbase';
 
-	const pb = new PocketBase('http://localhost:8080');
+	const pb = new PocketBase(PUBLIC_CLIENT_PB);
 
 	async function login(form: HTMLFormElement) {
 		try {

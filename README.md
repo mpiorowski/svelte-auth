@@ -14,7 +14,14 @@ Each of the sections is correlated with an article:
 # How to run
 
 1. Go to the desire solution
-2. Run docker-compose command
+2. Create .env file
+
+```
+cp .env.example .env
+```
+
+3. Run app
+
 ```
 docker-compose up --build
 ```

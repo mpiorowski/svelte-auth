@@ -1,11 +1,12 @@
 import { redirect, type Handle } from '@sveltejs/kit';
 import PocketBase from 'pocketbase';
 import { building } from '$app/environment';
+import { SERVER_PB } from '$env/static/private';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.id = '';
 	event.locals.email = '';
-	event.locals.pb = new PocketBase('http://pocketbase:8080');
+	event.locals.pb = new PocketBase(SERVER_PB);
 
 	const isAuth: boolean = event.url.pathname === '/auth';
 	if (isAuth || building) {
