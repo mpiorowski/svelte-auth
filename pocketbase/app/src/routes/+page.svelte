@@ -10,4 +10,9 @@
     {JSON.stringify(data, null, 2)}
 </pre>
 
-<button class="border rounded p-2" on:click={() => (window.location.href = '/auth')}>Logout</button>
+<button
+	class="border rounded p-2 mt-10 bg-gray-800 text-white hover:bg-gray-700"
+	on:click={() => (window.location.href = '/auth')}
+>
+	Logout
+</button>

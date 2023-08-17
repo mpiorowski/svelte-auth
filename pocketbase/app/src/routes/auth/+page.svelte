@@ -1,24 +1,23 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import PocketBase from 'pocketbase';
 
 	const pb = new PocketBase('http://localhost:8080');
 
-	async function login(form: HTMLFormElement) {
+	async function login() {
 		try {
 			await pb.collection('users').authWithOAuth2({ provider: 'github' });
-			form.token.value = pb.authStore.token;
-			form.submit();
+			const token = pb.authStore.exportToCookie();
+			window.location.href = '/?token=' + token;
 		} catch (err) {
 			console.error(err);
 		}
 	}
 </script>
 
-<form method="post" on:submit|preventDefault={(e) => login(e.currentTarget)}>
-	<input type="hidden" name="token" />
-	<button
-		class="max-w-lg m-auto border flex justify-center rounded p-2 mt-10 w-full bg-gray-800 text-white hover:bg-gray-700"
-	>
-		Login using Github
-	</button>
-</form>
+<button
+	on:click={login}
+	class="border rounded p-2 mt-10 bg-gray-800 text-white hover:bg-gray-700"
+>
+	Login using Github
+</button>
