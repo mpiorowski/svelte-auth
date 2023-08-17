@@ -13,8 +13,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return await resolve(event);
 	}
 
-	const token = event.url.searchParams.get('token');
-	const pb_auth = token ?? event.request.headers.get('cookie') ?? '';
+	const pb_auth = event.request.headers.get('cookie') ?? '';
 	event.locals.pb.authStore.loadFromCookie(pb_auth);
 
 	if (!event.locals.pb.authStore.isValid) {
@@ -27,7 +26,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			.authRefresh<{ id: string; email: string }>();
 		event.locals.id = auth.record.id;
 		event.locals.email = auth.record.email;
-	} catch (e) {
+	} catch (_) {
 		throw redirect(303, '/auth');
 	}
 
@@ -35,15 +34,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		throw redirect(303, '/auth');
 	}
 
-	let response: Response;
-	if (token) {
-		response = new Response('Redirect', {
-			status: 303
-		});
-		response.headers.append('Location', '/');
-	} else {
-		response = await resolve(event);
-	}
+	const response = await resolve(event);
 	const cookie = event.locals.pb.authStore.exportToCookie({ sameSite: 'lax' });
 	response.headers.append('set-cookie', cookie);
 	return response;
