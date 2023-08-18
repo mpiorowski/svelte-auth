@@ -6,13 +6,15 @@
 
 <h1>Welcome to SvelteAuth</h1>
 
-<pre>
-    {JSON.stringify(data, null, 2)}
-</pre>
+<h2>Made 1000 seperate requests to the database in {data.elapsed.toFixed(4)} ms</h2>
 
 <button
-	class="border rounded p-2 mt-10 bg-gray-800 text-white hover:bg-gray-700"
+	class="border rounded p-2 mt-10 mb-10 bg-gray-800 text-white hover:bg-gray-700"
 	on:click={() => (window.location.href = '/auth')}
 >
 	Logout
 </button>
+
+<pre>
+    {JSON.stringify(data, null, 2)}
+</pre>
