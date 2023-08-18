@@ -1,12 +1,12 @@
 version: "3"
 services:
-  client:
-    container_name: svelte-auth-client
+  app:
+    container_name: svelte-auth-application
     working_dir: /app
     build:
       context: ./app
 
-  pocketbase:
+  pb:
     container_name: svelte-auth-pocketbase
     working_dir: /pb
     build:
@@ -24,4 +24,3 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 8080:8080
