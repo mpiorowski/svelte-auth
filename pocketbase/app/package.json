@@ -1,5 +1,5 @@
 {
-	"name": "firebase",
+	"name": "svelte-auth-pocketbase",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {

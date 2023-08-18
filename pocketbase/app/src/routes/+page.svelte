@@ -6,7 +6,7 @@
 
 <h1>Welcome to SvelteAuth</h1>
 
-<h2>Made 1000 seperate requests to the database in {data.elapsed.toFixed(4)} ms</h2>
+<h2>Made 100 seperate requests to the database in {data.elapsed.toFixed(4)} ms</h2>
 
 <button
 	class="border rounded p-2 mt-10 mb-10 bg-gray-800 text-white hover:bg-gray-700"

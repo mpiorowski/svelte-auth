@@ -5,7 +5,7 @@ export const load = (async ({ locals }) => {
 	type Post = { id: string; title: string; content: string };
 	let posts: Post[] = [];
 	const promises: Promise<Post[]>[] = [];
-	for (let i = 0; i < 1000; i++) {
+	for (let i = 0; i < 100; i++) {
 		promises.push(
 			locals.pb.collection('posts').getFullList<Post>({ $autoCancel: false })
 		);
