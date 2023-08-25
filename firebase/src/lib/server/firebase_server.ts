@@ -10,11 +10,8 @@ export function getFirebaseServer(): Safe<typeof admin> {
 		if (serviceAccount.error) {
 			return { error: true, msg: "Couldn't parse service account" };
 		}
-		const app = safe(() =>
-			admin.initializeApp({
-				credential: admin.credential.cert(serviceAccount.data)
-			})
-		);
+		const cert = admin.credential.cert(serviceAccount.data);
+		const app = safe(() => admin.initializeApp({ credential: cert }));
 		if (app.error) {
 			return { error: true, msg: "Couldn't initialize app" };
 		}

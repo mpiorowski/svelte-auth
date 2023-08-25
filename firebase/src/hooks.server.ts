@@ -16,7 +16,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const session = event.cookies.get('session') ?? '';
 	const admin = getFirebaseServer();
 	if (admin.error) {
-		throw redirect(303, '/auth');
+		throw redirect(303, '/auth?error=' + admin.msg);
 	}
 	const decodedClaims = await safe(
 		admin.data.auth().verifySessionCookie(session, false)
