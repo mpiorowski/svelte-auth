@@ -1,0 +1,13 @@
+version: "3"
+services:
+  app:
+    container_name: svelte-auth-application
+    working_dir: /app
+    build:
+      context: ./app
+      target: dev
+    volumes:
+      - ./app/src:/app/src
+      - ./app/.svelte-kit/:/app/.svelte-kit
+    ports:
+      - 3000:3000
