@@ -18,11 +18,15 @@ Each of the sections is correlated with an article:
 1. Go to the desire solution
 
 2. Create .env file
+
 ```
 cp .env.example .env
 ```
 
-3. Run app
+3. Fill out the .env file with the proper values
+
+4. Run app
+
 ```
 docker-compose up --build
 ```
