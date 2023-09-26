@@ -28,5 +28,5 @@ cp .env.example .env
 4. Run app
 
 ```
-docker-compose up --build
+docker compose up --build
 ```
