@@ -3,23 +3,21 @@ FROM node:19-alpine as dev
 
 WORKDIR /app
 COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
 
-RUN npm install -g pnpm
-COPY pnpm-lock.yaml /app/pnpm-lock.yaml
-RUN pnpm install
+RUN npm install
 
 COPY . .
 
-CMD ["pnpm", "dev"]
+CMD ["npm", "run", "dev"]
 
 # Build
 FROM node:19-alpine as build
 WORKDIR /app
 COPY . .
 
-RUN npm install -g pnpm
-RUN pnpm install
-RUN pnpm build
+RUN npm install
+RUN npm build
 
 # Production
 FROM node:19-alpine as prod
@@ -27,9 +25,8 @@ WORKDIR /app
 COPY --from=build /app/build /app/build
 COPY src /app/src
 COPY package.json /app/package.json
-COPY pnpm-lock.yaml /app/pnpm-lock.yaml
+COPY package-lock.json /app/package-lock.json
 
-RUN npm install -g pnpm
-RUN pnpm install --prod
+RUN npm install --production
 
 CMD node build
