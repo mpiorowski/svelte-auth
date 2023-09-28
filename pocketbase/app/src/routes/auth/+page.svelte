@@ -4,10 +4,15 @@
 
 	const pb = new PocketBase(PUBLIC_CLIENT_PB);
 
-	async function login(form: HTMLFormElement) {
+	let form: HTMLFormElement;
+	async function login() {
 		try {
 			await pb.collection('users').authWithOAuth2({ provider: 'github' });
-			form.token.value = pb.authStore.token;
+			const input = document.createElement('input');
+			input.type = 'hidden';
+			input.name = 'token';
+			input.value = pb.authStore.token;
+			form.appendChild(input);
 			form.submit();
 		} catch (err) {
 			console.error(err);
@@ -15,11 +20,10 @@
 	}
 </script>
 
-<form method="post" on:submit|preventDefault={(e) => login(e.currentTarget)}>
-	<input name="token" type="hidden" />
-	<button
-		class="border rounded p-2 mt-10 bg-gray-800 text-white hover:bg-gray-700"
-	>
-		Login using Github
-	</button>
-</form>
+<form method="post" bind:this={form} />
+<button
+    on:click={login}
+	class="border rounded p-2 mt-10 bg-gray-800 text-white hover:bg-gray-700"
+>
+	Login using Github
+</button>
