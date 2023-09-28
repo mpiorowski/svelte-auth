@@ -2,14 +2,16 @@
     import { getFirebaseClient } from "$lib/firebase_client";
     import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 
-    const auth = getFirebaseClient();
-
     let form: HTMLFormElement;
     async function login(): Promise<void> {
         try {
-            const cred = await signInWithPopup(auth, new GoogleAuthProvider());
+            const auth = getFirebaseClient();
+            if (auth.error) {
+                return alert("Error: " + auth.msg);
+            }
+            const cred = await signInWithPopup(auth.data, new GoogleAuthProvider());
             const token = await cred.user.getIdToken();
-            await auth.signOut();
+            await auth.data.signOut();
             const input = document.createElement("input");
             input.type = "hidden";
             input.name = "token";

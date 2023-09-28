@@ -1,20 +1,18 @@
-import { SERVICE_ACCOUNT } from '$env/static/private';
-import admin, { type ServiceAccount } from 'firebase-admin';
-import { safe, type Safe } from './safe';
+import { SERVICE_ACCOUNT } from "$env/static/private";
+import admin, { type ServiceAccount } from "firebase-admin";
 
-export function getFirebaseServer(): Safe<typeof admin> {
-	if (!admin.apps.length) {
-		const serviceAccount = safe(
-			() => JSON.parse(SERVICE_ACCOUNT) as ServiceAccount
-		);
-		if (serviceAccount.error) {
-			return { error: true, msg: "Couldn't parse service account" };
-		}
-		const cert = admin.credential.cert(serviceAccount.data);
-		const app = safe(() => admin.initializeApp({ credential: cert }));
-		if (app.error) {
-			return { error: true, msg: "Couldn't initialize app" };
-		}
-	}
-	return { error: false, data: admin };
+export function getFirebaseServer():
+    | { error: false; data: typeof admin }
+    | { error: true; msg: string } {
+    try {
+        if (!admin.apps.length) {
+            const serviceAccount = JSON.parse(SERVICE_ACCOUNT) as ServiceAccount;
+            const cert = admin.credential.cert(serviceAccount);
+            admin.initializeApp({ credential: cert });
+        }
+        return { error: false, data: admin };
+    } catch (error) {
+        console.error(error);
+        return { error: true, msg: "Error initializing firebase server" };
+    }
 }
