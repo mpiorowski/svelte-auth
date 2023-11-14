@@ -11,7 +11,7 @@ Each of the sections is correlated with an article:
 
 - Svelte + PocketBase - https://dev.to/mpiorowski/oauth2-is-so-complicated-or-90-lines-of-code-with-svelte-532
 - Svelte + PocketBase + Nginx - https://dev.to/mpiorowski/bonus-svelte-pocketbase-nginx-amazingness-54l
-- Svelte + Firebase
+- Svelte + Firebase - https://dev.to/mpiorowski/svelte-firebase-ssr-3p3j
 
 # How to run
 
